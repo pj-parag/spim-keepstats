@@ -154,7 +154,7 @@ main (argc, argv)
      char **argv;
 #endif
 {
-  int i;
+  int i = 0; /*Uninitialized i will give segmentation fault,compiled with gcc 4.8.2 */
   int assembly_file_read = 0;
   int argv_ptr = 0;
 
@@ -179,7 +179,7 @@ main (argc, argv)
     {
       /* Only one argument better be a file name. */
       initialize_world (load_trap_handler ? trap_file : NULL);
-      assembly_file_read |= !read_assembly_file (argv[++i]);
+      assembly_file_read |= !read_assembly_file (argv[++i]);//here segfault ,uninitialized i 
     }
   else
     for (i = 1; i < argc; i++)
